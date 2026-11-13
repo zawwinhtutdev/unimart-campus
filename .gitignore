@@ -1,0 +1,20 @@
+# macOS metadata
+.DS_Store
+._*
+
+# Local database (created and seeded on first run)
+data/store.db
+data/proofs/
+data/store.db-wal
+data/store.db-shm
+
+# Generated for the static preview by tools/build-static.sh
+js/stock-snapshot.js
+dist/
+
+# Python
+__pycache__/
+*.pyc
+
+# Nothing else is excluded: _capture/ is the provenance evidence for the
+# storefront rebuild and is committed verbatim on purpose.
