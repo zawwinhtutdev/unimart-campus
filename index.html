@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UniMart — campus mini mart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="UniMart: the mini mart on your campus. Shop real shelves in Thai baht, check out with PromptPay, and track your orders.">
+<meta name="theme-color" content="#1f8a3b">
+<!-- Local study replica of a public Netlify concept demo, kept for design study.
+     Not deployed, not affiliated, collects no credentials: the "Place order"
+     button is a local animation and writes only to this browser's localStorage. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+<!-- design system: fonts, then tokens + layout + components -->
+<link rel="preload" href="assets/fonts/_Xms-HUzqDCFdgfMm4S9DaRvzig.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/3y9K6as8bTXq_nANBjzKo3IeZx8z6up5BeSl9D4dj_x9PpZBMlGIInHWVyNJ.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<!-- the page's own reset, kept first and separate exactly as shipped: it sets the
+     14px root font-size and the system-ui body font that app.css then overrides -->
+<style>
+html{color-scheme:light}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font-size:14px;font-family:system-ui,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="#" aria-label="UniMart home">Uni<span>Mart</span></a>
+    <span class="divider" aria-hidden="true"></span>
+    <div class="search-row" id="searchRow"><label class="search" for="q">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="#1d241f" stroke-width="2.2"/><path d="m15.5 15.5 5 5" stroke="#1d241f" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Search for groceries, brands, or recipes…" autocomplete="off" aria-label="Search products">
+      <button class="clear" id="clear" type="button" aria-label="Clear search" hidden>×</button>
+    </label></div>
+    <div class="icons">
+      <button class="currency-btn" id="currencyBtn" type="button" aria-label="Change currency">
+        <span class="cur-sym" aria-hidden="true">฿</span>
+        <span class="cur-code">THB</span>
+        <svg class="swap" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 8h10l-3-3M17 16H7l3 3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="icon-btn" id="favBtn" type="button" aria-pressed="false" aria-label="Show favorites">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.4A4.4 4.4 0 0 1 12 7.2a4.4 4.4 0 0 1 7.8 2.7c0 5.8-7.8 10.4-7.8 10.4Z" stroke="#1d241f" stroke-width="1.9" stroke-linejoin="round"/></svg>
+        <span class="count" id="favCount" hidden>0</span>
+      </button>
+      <button class="icon-btn bell" id="bellBtn" type="button" aria-expanded="false" aria-label="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.6 1.8H4.4L6 16.5Z" stroke="#1d241f" stroke-width="1.9" stroke-linejoin="round"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0" stroke="#1d241f" stroke-width="1.9" stroke-linecap="round"/></svg>
+        <span class="dot" id="bellDot"></span>
+      </button>
+      <button class="total-pill" id="totalPill" type="button" aria-label="Open cart">
+        <span class="lbl">Total</span><b id="pillTotal">฿0</b><i id="pillCount">0</i>
+      </button>
+      <button class="icon-btn acct" id="acctBtn" type="button" aria-label="Your account — sign in">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="#1d241f" stroke-width="1.9"/><path d="M4.5 20.5c.8-3.8 3.8-6 7.5-6s6.7 2.2 7.5 6" stroke="#1d241f" stroke-width="1.9" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1d241f" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="popover" id="bellPop" role="dialog" aria-label="Notifications" hidden>
+    <h3>Today</h3>
+    <div class="note"><img src="assets/products/strawberries.webp" alt=""><p><b>Berry season deal</b><br><small>Driscoll's Strawberries are $4.99 this week.</small></p></div>
+    <div class="note"><img src="assets/products/eggs.webp" alt=""><p><b>Back in stock</b><br><small>Eggland's Best Cage Free Large Eggs.</small></p></div>
+    <div class="note"><img src="assets/products/coke.webp" alt=""><p><b>Free delivery over $35</b><br><small>Stock up on drinks and save the fee.</small></p></div>
+  </div>
+</header>
+
+<main>
+  <div id="shelves"></div>
+  <div class="empty" id="empty" hidden></div>
+</main>
+
+<div class="ground" aria-hidden="true"></div>
+<div class="dock">
+  <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart">
+    <svg class="back" viewBox="0 0 300 140" aria-hidden="true">
+      <path d="M34 50h232l-12 90H46L34 50Z" fill="#e9eeea" fill-opacity=".92"/>
+      <g stroke="#c9d0ca" stroke-width="2"><path d="M40 72h220M43 96h214M46 120h208"/></g>
+    </svg>
+    <div class="load" id="load"></div>
+    <svg class="front" viewBox="0 0 300 140" aria-hidden="true">
+      <path d="M30 56h240l-13 84H43L30 56Z" fill="#ffffff" fill-opacity=".14" stroke="#a7b1a9" stroke-width="3.5" stroke-linejoin="round"/>
+      <g stroke="#b3bcb5" stroke-width="2.2" stroke-opacity=".95">
+        <path d="M33 80h234M36 104h228M39 128h222"/>
+        <path d="M58 56l5 84M86 56l3 84M114 56l2 84M142 56l1 84M158 56l-1 84M186 56l-2 84M214 56l-3 84M242 56l-5 84"/>
+      </g>
+      <rect x="16" y="42" width="268" height="16" rx="8" fill="#1f8a3b"/>
+      <rect x="16" y="42" width="268" height="5" rx="2.5" fill="#fff" fill-opacity=".25"/>
+      <rect x="6" y="44" width="24" height="12" rx="6" fill="#166b2d"/>
+      <rect x="270" y="44" width="24" height="12" rx="6" fill="#166b2d"/>
+    </svg>
+  </button>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="drawer left" id="menu" aria-label="Menu" aria-hidden="true">
+  <header><h2>Menu</h2><button class="close" data-close type="button" aria-label="Close menu">×</button></header>
+  <nav class="nav" id="nav"></nav>
+</aside>
+
+<aside class="drawer" id="drawer" aria-label="Your cart" aria-hidden="true">
+  <header><h2>Your cart<small id="drawerCount"></small></h2><button class="close" data-close type="button" aria-label="Close cart">×</button></header>
+  <div class="lines" id="lines"></div>
+  <div class="totals" id="totals">
+    <div class="free" id="freeMsg"></div>
+    <div class="meter"><span id="meter"></span></div>
+    <div class="row"><span>Subtotal</span><span id="sub">$0.00</span></div>
+    <div class="row"><span>Delivery</span><span id="fee">$0.00</span></div>
+    <div class="row big"><span>Total</span><span id="total">$0.00</span></div>
+    <button class="checkout" id="checkout" type="button">Place order</button>
+  </div>
+</aside>
+
+<script src="js/data.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script src="js/account.js"></script>
+<!-- verification harness only: no-op unless ?state=… is present -->
+<script src="js/harness.js"></script>
+</body>
+</html>
