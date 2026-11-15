@@ -1,0 +1,7 @@
+# The capture evidence is research data, not source: keep it out of the
+# language statistics so the repo reads as Python + JavaScript.
+_capture/** linguist-vendored
+docs/screenshots/*.png binary
+docs/banner.png binary
+*.woff2 binary
+*.webp binary
