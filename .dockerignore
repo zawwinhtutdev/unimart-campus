@@ -1,0 +1,13 @@
+.git
+.github
+docs
+tests
+tools
+_capture
+data/store.db
+data/store.db-wal
+data/store.db-shm
+data/proofs
+__pycache__
+*.pyc
+.DS_Store
