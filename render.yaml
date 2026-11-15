@@ -1,0 +1,12 @@
+# One-click deploy of the full app (storefront + admin + checkout).
+# Render runs the Dockerfile; SQLite lives on the container filesystem, so demo
+# data resets when the service restarts. Attach a disk for persistence.
+services:
+  - type: web
+    name: unimart
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: "8000"
