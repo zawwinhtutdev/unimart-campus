@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>UniMart Admin — Inventory</title>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/admin/admin.css">
+<script src="/admin/admin.js" defer></script>
+</head>
+<body>
+
+<!-- ------------------------------ login ------------------------------ -->
+<div class="login" id="login" hidden>
+  <form class="login-card" id="loginForm" autocomplete="on">
+    <div class="login-brand">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5v-7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 8.5 12 13l8-4.5M12 13v7" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </span>
+      <div><h1>UniMart</h1><p>Operations console</p></div>
+    </div>
+    <label class="field">
+      <span>Username</span>
+      <input name="username" id="loginUser" required autocomplete="username" placeholder="admin" spellcheck="false">
+    </label>
+    <label class="field">
+      <span>Password</span>
+      <input name="password" id="loginPass" type="password" required autocomplete="current-password" placeholder="••••••••">
+    </label>
+    <p class="login-error" id="loginError" role="alert" hidden></p>
+    <button class="btn btn-primary login-submit" type="submit" id="loginBtn">Sign in</button>
+    <div class="login-hint">
+      <strong>Demo accounts</strong>
+      <span><code>admin</code> / <code>unimart123</code> — full access</span>
+      <span><code>manager</code> / <code>manager123</code> — cannot delete products</span>
+    </div>
+    <a class="login-back" href="/">← Back to storefront</a>
+  </form>
+</div>
+
+<!-- ------------------------------- app ------------------------------- -->
+<div class="shell" id="shell" hidden>
+  <aside class="side" id="side" aria-label="Main navigation">
+    <div class="side-head">
+      <a class="brand" href="#/dashboard">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5v-7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 8.5 12 13l8-4.5M12 13v7" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="brand-text">UniMart<em>admin</em></span>
+      </a>
+      <button class="icon-btn side-close" id="sideClose" aria-label="Close navigation" type="button">
+        <svg viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <nav class="nav" id="nav">
+      <p class="nav-label">Operations</p>
+      <a class="nav-item" data-view="dashboard" href="#/dashboard">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8" stroke="currentColor" stroke-width="1.7"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8" stroke="currentColor" stroke-width="1.7"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" data-view="inventory" href="#/inventory">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5v-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        <span>Inventory</span><em class="nav-badge" id="navLow"></em>
+      </a>
+      <a class="nav-item" data-view="movements" href="#/movements">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3.5 12h4l2.5-7 4 14 2.5-7h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Stock history</span>
+      </a>
+      <a class="nav-item" data-view="payments" href="#/payments">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5.5" width="18" height="13" rx="2.2" stroke="currentColor" stroke-width="1.7"/><path d="M3 10h18" stroke="currentColor" stroke-width="1.7"/><path d="M7 14.5h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span>Payments</span><em class="nav-badge" id="navPay"></em>
+      </a>
+      <a class="nav-item" data-view="orders" href="#/orders">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5.5 3.5h13v17l-2.2-1.6-2.1 1.6-2.2-1.6-2.2 1.6-2.1-1.6L5.5 20.5v-17Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 8.5h6M9 12.5h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span>Orders</span>
+      </a>
+      <p class="nav-label">Storefront</p>
+      <a class="nav-item nav-ext" href="/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M14 4.5h5.5V10M19.5 4.5 11 13M9.5 5.5H5.5v13h13V14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>View shop</span>
+      </a>
+    </nav>
+
+    <div class="side-foot">
+      <div class="account">
+        <span class="avatar" id="avatar">A</span>
+        <span class="account-text"><strong id="userName">—</strong><small id="userRole">—</small></span>
+        <button class="icon-btn" id="logoutBtn" title="Sign out" aria-label="Sign out" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 8V5.5A1.5 1.5 0 0 0 13.5 4h-8A1.5 1.5 0 0 0 4 5.5v13A1.5 1.5 0 0 0 5.5 20h8a1.5 1.5 0 0 0 1.5-1.5V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M10 12h10m0 0-3.2-3.2M20 12l-3.2 3.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="scrim" id="sideScrim" hidden></div>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn only-mobile" id="sideOpen" aria-label="Open navigation" type="button">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+      </button>
+      <div class="topbar-title">
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="pageSub">Inventory health at a glance</p>
+      </div>
+      <div class="topbar-actions">
+        <span class="sync" id="syncState" title="Data source: local SQLite">
+          <i></i><span>Live</span>
+        </span>
+        <button class="btn btn-ghost" id="refreshBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v4.5h-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="label">Refresh</span>
+        </button>
+        <button class="btn btn-primary" id="newProductBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+          <span class="label">New product</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="view" id="view" tabindex="-1">
+      <div class="loading" id="bootLoading"><span class="spinner"></span> Loading workspace…</div>
+    </main>
+  </div>
+</div>
+
+<div id="modals"></div>
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+</body>
+</html>
