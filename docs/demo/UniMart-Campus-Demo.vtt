@@ -1,0 +1,64 @@
+WEBVTT
+
+00:01.000 --> 00:03.686
+This is UniMart, the mini mart on your campus.
+
+00:05.900 --> 00:10.260
+Two apps: a storefront for students, and an admin console for staff.
+
+00:10.760 --> 00:14.375
+Both run on one Python process and one SQLite database.
+
+00:16.267 --> 00:19.523
+Sixty-six products on four shelves, priced in baht.
+
+00:20.033 --> 00:21.992
+Search filters the shelves as you type.
+
+00:23.767 --> 00:26.657
+Prices switch between baht and dollars at a fixed rate.
+
+00:27.767 --> 00:30.041
+Sold-out items can't be added to the cart.
+
+00:31.300 --> 00:34.471
+Add items, and the cart shows the delivery fee and total.
+
+00:38.867 --> 00:42.344
+Checkout takes a delivery address and one of three payment methods.
+
+00:46.533 --> 00:50.705
+A PromptPay QR code is generated for each order. This one is a demo.
+
+00:51.200 --> 00:56.561
+Placing the order gives a reference, FC-2026-0128.
+
+00:57.067 --> 00:59.123
+Then the shopper uploads their payment slip.
+
+01:02.433 --> 01:04.650
+Staff see stock and sales at a glance.
+
+01:07.433 --> 01:10.061
+Click any day on the chart to see that day's orders.
+
+01:13.233 --> 01:15.816
+Filter low stock, and restock with a reason.
+
+01:20.400 --> 01:22.456
+Every change is logged in stock history.
+
+01:24.400 --> 01:26.840
+Packing is blocked until the payment is confirmed.
+
+01:27.900 --> 01:30.155
+Staff check the slip and confirm the payment.
+
+01:33.533 --> 01:34.938
+The order moves to packing,
+
+01:37.533 --> 01:40.476
+and the shopper sees the same status in their order history.
+
+01:43.033 --> 01:45.633
+UniMart. Browse, pay, track.

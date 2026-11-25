@@ -24,11 +24,11 @@ console need the local app; run `python3 server.py` for the full flow.
 
 ## Demo video
 
-[![UniMart demo video (1:48)](docs/demo/poster.jpg)](docs/demo/UniMart-Campus-Demo.mp4)
+[![UniMart demo video (1:48)](docs/demo/poster.jpg)](https://zawwinhtutdev.github.io/unimart-campus/demo/)
 
 A 1:48 narrated walkthrough recorded from the running app: storefront, checkout with
 payment-slip upload, and the admin console confirming the payment and moving the order to
-packing. Click the image to play it, or download
+packing. Click the image to **[watch it in your browser](https://zawwinhtutdev.github.io/unimart-campus/demo/)**, or download
 [UniMart-Campus-Demo.mp4](docs/demo/UniMart-Campus-Demo.mp4) (1920×1080, 18 MB) with
 [English subtitles](docs/demo/UniMart-Campus-Demo.srt).
 
