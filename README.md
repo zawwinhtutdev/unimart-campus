@@ -14,13 +14,23 @@
 ![License](https://img.shields.io/badge/license-MIT-blue)
 [![Live preview](https://img.shields.io/badge/live%20preview-vercel-black?logo=vercel)](https://unimart-campus-app.vercel.app/)
 
-[Live preview](https://unimart-campus-app.vercel.app/) · [Overview](#overview) · [Screenshots](#screenshots) · [Quick start](#quick-start) · [Walkthrough](#walkthrough) · [Architecture](#architecture) · [API](#api) · [Testing](#testing)
+[Live preview](https://unimart-campus-app.vercel.app/) · [Demo video](#demo-video) · [Overview](#overview) · [Screenshots](#screenshots) · [Quick start](#quick-start) · [Walkthrough](#walkthrough) · [Architecture](#architecture) · [API](#api) · [Testing](#testing)
 
 **Live UI preview:** <https://unimart-campus-app.vercel.app/> — the storefront running on
 Vercel (browse, search, favourites, cart, currency). Checkout, accounts and the admin
 console need the local app; run `python3 server.py` for the full flow.
 
 </div>
+
+## Demo video
+
+[![UniMart demo video (1:48)](docs/demo/poster.jpg)](docs/demo/UniMart-Campus-Demo.mp4)
+
+A 1:48 narrated walkthrough recorded from the running app: storefront, checkout with
+payment-slip upload, and the admin console confirming the payment and moving the order to
+packing. Click the image to play it, or download
+[UniMart-Campus-Demo.mp4](docs/demo/UniMart-Campus-Demo.mp4) (1920×1080, 18 MB) with
+[English subtitles](docs/demo/UniMart-Campus-Demo.srt).
 
 ## For the marker
 
